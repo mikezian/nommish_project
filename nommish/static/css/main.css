@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:700,500|Open+Sans:700,400");
+.nav-header {
+  background-color: #f5f5f5;
+  margin-bottom: 20px;
+}
+.thumbnail { padding:0; overflow: hidden; }
+.thumb { position: relative; overflow:hidden; clear:none;  }
+.thumb img { width:100%; }
+.thumb a > img { height: 155px; width:100%; }
+.thumb a > div {
+position: absolute;
+top: 70%;
+height: 30%; 
+width: 100%;
+z-index:2;
+background: rgba(0,0,0,0.30);
+padding:10px;
+}
+
+.thumb .sm-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+div .collection-name { 
+   opacity: 1;
+   visibility: visible;
+}
+.thumb div p {
+  margin-bottom: 0;
+   font-size: 12px;
+   color: white;
+}
+.thumb div span {
+   font-size: 12px;
+   color: #009688;
+}
+.recipe-source {
+  font-size:12px;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.recipe-description {
+  line-height: 24px;
+}
+
+/* end bootstrap material card */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1, h2, h3, h4, h5 {
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+.navbar-brand {
+  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 24px;
+}
+.container {
+  width: auto;
+  max-width: 980px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+.subnav {
+  margin: 23px 0 13px 0;
+}
+.navbar .account-info {
+  padding: 3px 20px;
+  font-weight: 600;
+  border-bottom: 1px solid #dbdbdb;
+}
+.navbar-default {margin-bottom: 0px; }
+
+/*.nav-pills > li.active > a.active-subnav {
+  background-color: #fff;
+  color: #616161;
+}*/
+.modal-subheader {
+  margin: 10px auto;
+  line-height: 10px;
+}
+
+.signup-container {
+  padding:50px 0;
+}
+
+.collection-checkbox {
+  margin-left: 20px;
+}
+
+
+
+input.faChkRnd, input.faChkSqr {
+  visibility: hidden;
+}
+
+input.faChkRnd:after,
+input.faChkSqr:after {
+  visibility: visible;
+  font-family: FontAwesome;
+  font-size:16px;
+  height: 16px; 
+  width: 16px;
+  position: relative;
+  top: -3px;
+  left: 0px;
+  background-color:#FFF;
+  color: #c0c0c0;
+  display: inline-block;
+  font-weight: 300;
+}
+
+input.faChkRnd:checked:after {
+  content: '\f05d';
+  color: #005951;
+}
+
+input.faChkRnd:after {
+  content: '\f10c';
+}

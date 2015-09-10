@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block subnav %}
+{% if title %}
+<h2>{{ title }}</h2>
+{% endif%}
+{% endblock subnav %}
+
+{% block content %}
+{% load template_filters %}
+{{courses}}
+{% for course in courses %}
+	{% if course.courses__name%}
+	name {{ course.courses__name }}
+	{% endif %}
+{% endfor %}
+<!-- Pagination -->
+{% if is_paginated %}
+{% include 'paginated_links.html' with page_obj=page_obj paginator=paginator %}
+{% endif %}
+{% endblock content %}

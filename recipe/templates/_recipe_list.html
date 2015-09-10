@@ -1,0 +1,32 @@
+{% load template_filters %}
+<div class="row">
+<!-- Recipe Cards -->
+{% for recipe in recipe_list %}
+    <div class="col-md-3 col-sm-3 col-xs-12">
+      <div class="thumbnail">
+            <div class="thumb">
+                <a href="{% url 'recipe-detail' slug=recipe.slug %}">
+                {% if recipe.large_image %}
+                <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}">
+                {% else %}
+                <img src="http://placehold.it/360x240"  height="195">
+                {% endif %}
+                <div>
+                    <p>{{ recipe.name|truncatechars_html:35}}</p>
+                    <span>{{ recipe.course.name }}</span>
+                </div>
+                </a>
+            </div>
+            <div class="caption">
+                <p class="source-text">
+                    <a href="{% url 'recipe-source-list' slug=recipe.source_slug %}">{{ recipe.source_text }}</a>
+                </p>
+                <p>
+                    <span class="glyphicon glyphicon-time" aria-hidden="true" alt="Prep time:" title="Prep time:"></span> 
+                    {{ recipe.preparation_time|prettify_time_in_seconds }}
+                </p>
+            </div>
+      </div>
+    </div>
+{% endfor %}
+</div>

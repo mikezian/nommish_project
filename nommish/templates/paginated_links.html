@@ -1,0 +1,21 @@
+{% load template_filters %}
+<!-- Pagination -->
+<div class="row">
+    <div class="text-center">
+        <ul class="pagination pagination-centered">
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1">&lt;&lt;</a></li>
+                <li><a href="?{% url_replace request 'page' page_obj.previous_page_number %}">&lt;</a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range|pagination_limited_page_range:page_obj.number %}
+                <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?{% url_replace request 'page' i %}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li><a href="?{% url_replace request 'page' page_obj.next_page_number %}">&gt;</a></li>
+                <li><a href="?{% url_replace request 'page' page_obj.paginator.num_pages %}">&gt;&gt;</a></li>
+            {% endif %}
+        </ul>        
+    </div>    
+</div>

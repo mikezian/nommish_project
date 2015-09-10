@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block subnav %}
+<h1>{{ title }}</h1>
+{% endblock subnav %}
+
+{% block headline %}<h1>Test</h1>{% endblock headline %}
+{% block content %}
+{% load template_filters %}
+<div class="row">
+{% if collections %}
+{% for collection in collections %}
+    <div class="col-md-3 center-block">
+      <div class="thumbnail">
+            <div class="thumb">
+                <a href="{{ collection.url }}">
+                    {% if collection.cover %}
+                    <img src="{{ collection.cover }}">
+                    {% else %}
+                    <img src="http://placehold.it/360x240">
+                    {% endif %}
+                    <div class="collection-name">
+                        <p>{{ collection.name|upper }} ({{ collection.count }})</p>
+                    </div>
+                </a>
+            </div>
+      </div>
+    </div>
+{% endfor %}
+{% endif %}       
+</div>
+{% endblock content %}

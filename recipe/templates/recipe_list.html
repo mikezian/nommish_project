@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block subnav %}
+{% if title %}
+<h2>{{ title }}</h2>
+<hr />
+{% endif%}
+{% endblock subnav %}
+
+{% block content %}
+
+{% load template_filters %}
+{% load crispy_forms_tags %}
+
+
+{% include '_recipe_list.html' with recipe_list=recipe_objects %}
+<!-- Pagination -->
+{% if is_paginated %}
+{% include 'paginated_links.html' with page_obj=page_obj paginator=paginator %}
+{% endif %}
+{% endblock content %}

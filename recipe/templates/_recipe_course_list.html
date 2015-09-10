@@ -1,0 +1,5 @@
+<ul class="dropdown-menu">
+    {% for course in courses %}
+    <li><a href="{% url 'course-list' course.name|slugify %}">{{ course.name }}</a></li>
+    {% endfor %}
+</ul>

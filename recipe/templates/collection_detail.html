@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load template_filters %} {% block footer_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="center">
+        <div class="col-xs-12 col-sm-3">
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <h3>{{title}}</h3>
+            <div class="panel">
+                <form method="post" action="{% url 'add-recipe-collection' %}">
+                  {% crispy form %}
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+        </div>
+    </div>
+</div>
+<!--/container-->
+{% endblock %}

@@ -1,0 +1,21 @@
+pytz
+elasticsearch
+
+Django==1.8
+django-jsonfield==0.9.13
+psycopg2
+django-allauth
+django-braces
+django-crispy-forms
+# replace django-cachalot with something else
+django-redis==4.2.0
+django-environ
+djangorestframework
+
+django-bootstrap3 
+
+# django-haystack==2.4.0
+elasticsearch-dsl
+
+unicode-slugify
+yummly

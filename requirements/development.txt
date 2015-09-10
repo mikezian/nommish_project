@@ -1,0 +1,9 @@
+-r base.txt
+
+django-debug-toolbar
+httpie
+django_extensions
+#ipython
+#notebook
+#ipywidgets
+#jinja2

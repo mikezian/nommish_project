@@ -1,0 +1,6 @@
+.env
+fab_script/
+sql_export/
+logs/*
+**/.DS_Store
+*.pyc

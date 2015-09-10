@@ -1,0 +1,21 @@
+{% load recipe_tags %}
+
+{% block subnav %}
+<div class="subnav" role="navigation">
+    <div class="navbar-inner subnav">
+        <div class="">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle active-subnav">
+                        Recently Added
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Courses <b class="caret"></b></a>
+                        {% recipe_course_list %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
