@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:700,500|Open+Sans:700,400");
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script:400|Open+Sans:700,400");
 .nav-header {
   background-color: #f5f5f5;
   margin-bottom: 20px;
@@ -57,7 +57,7 @@ body {
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 h1, h2, h3, h4, h5 {
-  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .footer {
   position: absolute;
@@ -68,8 +68,8 @@ h1, h2, h3, h4, h5 {
   background-color: #f5f5f5;
 }
 .navbar-brand {
-  font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 24px;
+  font-family: "Dancing Script","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 44px;
 }
 .container {
   width: auto;
