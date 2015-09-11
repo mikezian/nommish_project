@@ -16,7 +16,7 @@ def to_str(uni_or_str):
 @register.filter(name='prettify_time_in_seconds')
 def prettify_time_in_seconds(sec):
     if sec < 60:
-        return '< a min.'
+        return 'less than 5 mins.'
     minute, seconds = divmod(sec, 60)
     hours, minute = divmod(minute, 60)
 
@@ -29,7 +29,7 @@ def prettify_time_in_seconds(sec):
 @register.filter(name='format_ingredients')
 def format_ingredients(ingredients):
     # https://stackoverflow.com/questions/1894269/convert-string-representation-of-list-to-list-in-python
-    return [i for i in ast.literal_eval(ingredients)]
+    return set([i for i in ast.literal_eval(ingredients)])
 
 @register.filter
 def join_list(object):
