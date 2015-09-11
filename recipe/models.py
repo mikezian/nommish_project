@@ -215,6 +215,7 @@ class Recipe(models.Model):
     url = models.TextField()
     preparation_time = models.IntegerField(default=60)
     likes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     servings = models.IntegerField(default=1)
     json_response = jsonfield.JSONField(null=True)
     is_indexed = models.NullBooleanField(default=False, null=True)
