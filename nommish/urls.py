@@ -15,7 +15,7 @@ urlpatterns = [
 
     # all-auth views
 
-    url(r'^accounts/login/$', JointLoginSignupView.as_view()),
-    url(r'^accounts/signup/$', JointLoginSignupView.as_view()),
+    # url(r'^accounts/login/$', JointLoginSignupView.as_view()),
+    # url(r'^accounts/signup/$', JointLoginSignupView.as_view()),
     url(r'^accounts/', include('allauth.urls')),
 ]
