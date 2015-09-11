@@ -296,7 +296,6 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
         exclude_clause.append(
             {"term": {"document_id": _course_info.id}}
         )
-        print 'holiday_info', len(holiday_info)
         if course_info:
             course_id = course_info[0].id
             match_clause.append({'match': {'courses': {'query': course_id, 'boost': 5}}})
@@ -322,8 +321,7 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
                 }
             }
         })
-        print 'query2 %s' % s.to_dict()
-
+        
         s = s.extra(size=6)
         results = s.execute()
         context['suggested_recipes'] = results
@@ -349,6 +347,7 @@ class RecipeSourceRedirectView(RecipeDetailView):
 
     def dispatch(self, request, *args, **kwargs):
         recipe = self.get_queryset()
+        # todo: increment views
         url_info = urlparse(recipe[0].source_url)
         return HttpResponseRedirect('http://%s' % url_info.path)
 
