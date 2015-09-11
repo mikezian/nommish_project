@@ -19,7 +19,7 @@
             </div>
             <div class="caption">
                 <p class="source-text">
-                    <a href="{% url 'recipe-source-list' slug=recipe.source_slug %}">{{ recipe.source_text }}</a>
+                    <a href="{% url 'recipe-source-list' slug=recipe.source_slug %}">{{ recipe.source_text|truncatechars_html:20 }}</a>
                 </p>
                 <p>
                     <span class="glyphicon glyphicon-time" aria-hidden="true" alt="Prep time:" title="Prep time:"></span> 
