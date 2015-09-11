@@ -31,7 +31,7 @@ class UserCollectionSerializer(serializers.ModelSerializer):
             recipe=recipe,
             user=validated_data.get('user')
         )
-        print 'c', dir(c)
+        # todo: increment likes
         return c
 
 class RecipesCollectionSerializer(serializers.ModelSerializer):
@@ -58,13 +58,13 @@ class RecipesCollectionSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def delete(data):
-        print 'imherrrrrrrrreeeeeeeeeeeeee', data.keys()
         try:
             c = UserCollection.objects.remove_from_collection(
                 collection=data.get('collection'),
                 recipe=data.get('recipe'),
                 user=data.get('user')
             )
+            # todo: delete likes
         except ObjectDoesNotExist:
             # don't do anything log it
             pass
