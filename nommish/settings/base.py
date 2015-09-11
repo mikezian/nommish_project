@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     # Login via Google
     # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.facebook',
+    'bootstrap3',
 
     'crispy_forms',
 
