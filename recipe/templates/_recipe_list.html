@@ -12,19 +12,23 @@
                 <img src="http://placehold.it/360x240"  height="195">
                 {% endif %}
                 <div>
-                    <p>{{ recipe.name|truncatechars_html:35}}</p>
+                    <p>{{ recipe.name|truncatechars_html:25}}</p>
                     <span>{{ recipe.course.name }}</span>
                 </div>
                 </a>
             </div>
-            <div class="caption">
-                <p class="source-text">
-                    <a href="{% url 'recipe-source-list' slug=recipe.source_slug %}">{{ recipe.source_text|truncatechars_html:20 }}</a>
-                </p>
-                <p>
-                    <span class="glyphicon glyphicon-time" aria-hidden="true" alt="Prep time:" title="Prep time:"></span> 
-                    {{ recipe.preparation_time|prettify_time_in_seconds }}
-                </p>
+            <div class="container">
+                <div class="row">
+                    <ul class="source-text">
+                        <li>
+                            <a href="{% url 'recipe-source-list' slug=recipe.source_slug %}">{{ recipe.source_text|truncatechars_html:20 }}</a>
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon-time" aria-hidden="true" alt="Prep time:" title="Prep time:"></span> 
+                            {{ recipe.preparation_time|prettify_time_in_seconds }}
+                        </li>
+                    </ul>
+                </div>
             </div>
       </div>
     </div>

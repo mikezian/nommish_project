@@ -1,246 +1,235 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
-
-{% load template_filters %} {% block footer_js %}
-<script type="text/javascript">
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-function sameOrigin(url) {
-    // test that a given url is a same-origin URL
-    // url could be relative or scheme relative or absolute
-    var host = document.location.host; // host + port
-    var protocol = document.location.protocol;
-    var sr_origin = '//' + host;
-    var origin = protocol + sr_origin;
-    // Allow absolute or scheme relative URLs to same origin
-    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-        // or any other URL that isn't scheme relative or absolute i.e relative.
-        !(/^(\/\/|http:|https:).*/.test(url));
-}
-$(document).ready(function() {
+{% load template_filters %}
+{% block footer_js %}
+  <script type="text/javascript">
+  function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie != '') {
+  var cookies = document.cookie.split(';');
+  for (var i = 0; i < cookies.length; i++) {
+  var cookie = jQuery.trim(cookies[i]);
+  // Does this cookie string begin with the name we want?
+  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+  break;
+  }
+  }
+  }
+  return cookieValue;
+  }
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  function sameOrigin(url) {
+  // test that a given url is a same-origin URL
+  // url could be relative or scheme relative or absolute
+  var host = document.location.host; // host + port
+  var protocol = document.location.protocol;
+  var sr_origin = '//' + host;
+  var origin = protocol + sr_origin;
+  // Allow absolute or scheme relative URLs to same origin
+  return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+  (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+  // or any other URL that isn't scheme relative or absolute i.e relative.
+  !(/^(\/\/|http:|https:).*/.test(url));
+  }
+  $(document).ready(function() {
   $('.btn-add').on('click', function(){
-    payload = {
-      'name': $('input[name="name"]').val(),
-      'recipe': {{ recipe.id }},
-      'csrfmiddlewaretoken': getCookie('csrftoken')
-    };
-
-    $.ajax({
-      'url': '{% url "api-collection-list" %}',
-      'type': 'POST',
-      'data': payload,
-      'success': function(json) {
-        $('collection-checkbox')
-        $( '<label class="checkbox">' ).html( '<input type="checkbox" checked="checked" name="recipecollection" value="'+json.id+'" class="faChkRnd">'+json.name.toUpperCase() ).appendTo( ".collection-checkbox > .form-group > .controls" );
-
-      }
-    })
+  payload = {
+  'name': $('input[name="name"]').val(),
+  'recipe': {{ recipe.id }},
+  'csrfmiddlewaretoken': getCookie('csrftoken')
+  };
+  $.ajax({
+  'url': '{% url "api-collection-list" %}',
+  'type': 'POST',
+  'data': payload,
+  'success': function(json) {
+  $('collection-checkbox')
+  $( '<label class="checkbox">' ).html( '<input type="checkbox" checked="checked" name="recipecollection" value="'+json.id+'" class="faChkRnd">'+json.name.toUpperCase() ).appendTo( ".collection-checkbox > .form-group > .controls" );
+  }
+  })
   });
   $('body').delegate('input[name="recipecollection"]', 'click', function(){
-    _this = $(this);
-    collection = _this.val();
-    if (_this.is(':checked')) {
-      method = 'POST';
-      payload = {
-        'collection': collection,
-        'recipe': {{ recipe.id }},
-        'csrfmiddlewaretoken': getCookie('csrftoken')
-      };
-      url = '{% url "api-recipe-collection-list" %}';
-    } else {
-      method = 'DELETE';
-      payload = {
-        'collection': collection,
-        'recipe': {{ recipe.id }},
-        'csrfmiddlewaretoken': getCookie('csrftoken')
-      };
-      url = '{% url "api-recipe-collection-list-delete" pk=recipe.id %}';
-    }
-    $.ajax({
-      beforeSend: function(xhr, settings) {
-          if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-              // Send the token to same-origin, relative URLs only.
-              // Send the token only if the method warrants CSRF protection
-              // Using the CSRFToken value acquired earlier
-              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-          }
-      },
-      'url': url,
-      'method': method,
-      'data': payload,
-      'success': function(json) {
-        if (method == 'DELETE') {
-          _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">removed from collection</small>)</span>');
-        } else {
-          _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">added to collection</small>)</span>');
-        }
-        $('.alert-notification').fadeOut(2500);
-      }
-    })
+  _this = $(this);
+  collection = _this.val();
+  if (_this.is(':checked')) {
+  method = 'POST';
+  payload = {
+  'collection': collection,
+  'recipe': {{ recipe.id }},
+  'csrfmiddlewaretoken': getCookie('csrftoken')
+  };
+  url = '{% url "api-recipe-collection-list" %}';
+  } else {
+  method = 'DELETE';
+  payload = {
+  'collection': collection,
+  'recipe': {{ recipe.id }},
+  'csrfmiddlewaretoken': getCookie('csrftoken')
+  };
+  url = '{% url "api-recipe-collection-list-delete" pk=recipe.id %}';
+  }
+  $.ajax({
+  beforeSend: function(xhr, settings) {
+  if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+  // Send the token to same-origin, relative URLs only.
+  // Send the token only if the method warrants CSRF protection
+  // Using the CSRFToken value acquired earlier
+  xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+  }
+  },
+  'url': url,
+  'method': method,
+  'data': payload,
+  'success': function(json) {
+  if (method == 'DELETE') {
+  _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">removed from collection</small>)</span>');
+  } else {
+  _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">added to collection</small>)</span>');
+  }
+  $('.alert-notification').fadeOut(2500);
+  }
+  })
   });
-});
-</script>
+  });
+  </script>
 {% endblock %}
-
 {% block content %}
-
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10">
-        <h2>{{ recipe.name }}</h2>
-        <div class="recipe-source">
-          Source: <a href="{% url 'recipe-source-redirect' slug=recipe.slug %}" target="_blank">{{ recipe.attribution_url }}</a>
-        </div>
-        <div class="row">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10">
+          <h2>{{ recipe.name }}</h2>
+          <div class="recipe-source">
+            Source: <a href="{% url 'recipe-source-redirect' slug=recipe.slug %}" target="_blank">{{ recipe.attribution_url }}</a>
+          </div>
+          <div class="row">
+            <div class="col-md-7 recipe-description">
+              <p><strong>Ingredients: </strong>
+                <ul>
+                  {% for ingredient in recipe.ingredients|format_ingredients %} <li>{{ ingredient }}</li>
+                {% endfor %}
+              </ul>
+            </p>
+            <p><strong>Preparation Time: </strong> {{ recipe.preparation_time|prettify_time_in_seconds }} </p>
+            <p><strong>Servings: </strong> {{ recipe.servings }} </p>
+            {% if recipe.courses.all %}
+              <p><strong>Course: </strong>
+                {% for c in recipe.courses.all %} <a href="{% url 'course-list' slug=c.slug %}">{{ c.name }}</a>
+              {% endfor %}
+            </p>
+          {% endif %}
+          <p>
+            <a class="" href="{{ recipe.url }}" target="_blank">
+              Get Directions on {{ recipe.source_text }}
+            </a>
+            <br />
+            <em>
+            <small>
+            {{ recipe.name }} recipe information powered by
+            <a href="http://www.yummly.com" target="_blank">Yummly</a>
+            </small>
+            </em>
+          </p>
+          </div><!--end recipe details-->
           <div class="col-md-5">
             <div class="thumbnail">
-              <div class="thumb">
-                {% if recipe.large_image %}
-                  <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}"  height="195">
-                {% else %}
-                  <img src="http://placehold.it/360x240"  height="195">
-                {% endif %}    
-              </div>
-              <div class="caption text-left">
-                <div class="add-recipe">
-                  {% if user.is_authenticated %}
-                    <button class="btn btn-info add-recipe" data-toggle="modal" data-target="#addRecipe" title="Add to Collection">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    Add Recipe
-                    </button>
+                <div class="thumb">
+                  {% if recipe.large_image %}
+                    <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}"  height="195">
                   {% else %}
-                    <a class="btn btn-info add-recipe" title="Add to Collection" href="{% url 'account_login' %}?next={{ request.path|urlencode }}">
-                      <i class="glyphicon glyphicon-plus"></i>
-                      Add Recipe
-                    </a>
+                    <img src="http://placehold.it/360x240"  height="195">
                   {% endif %}
                 </div>
               </div>
-            </div>
-          </div><!--end thumbnail-->
-          <div class="col-md-7 recipe-description">
-              <p><strong>Ingredients: </strong>
-                <ul>
-                {% for ingredient in recipe.ingredients|format_ingredients %} <li>{{ ingredient }}</li>
-                {% endfor %}
-                </ul>
-              </p>
-              <p><strong>Preparation Time: </strong> {{ recipe.preparation_time|prettify_time_in_seconds }} </p>
-              <p><strong>Servings: </strong> {{ recipe.servings }} </p>
-             {% if recipe.courses.all %}
-              <p><strong>Course: </strong> 
-                {% for c in recipe.courses.all %} <a href="{% url 'course-list' slug=c.slug %}">{{ c.name }}</a>
-                {% endfor %}
-              </p>
-              {% endif %}
-              <p>
-                <a class="" href="{{ recipe.url }}" target="_blank">
-                  Get Directions on {{ recipe.source_text }}
+              <!--end thumbnail-->
+              {% if user.is_authenticated %}
+                <button class="btn btn-info add-recipe" data-toggle="modal" data-target="#addRecipe" title="Add to Collection">
+                <i class="glyphicon glyphicon-plus"></i>
+                Add Recipe
+                </button>
+              {% else %}
+                <a class="btn btn-info add-recipe" title="Add to Collection" href="{% url 'account_login' %}?next={{ request.path|urlencode }}">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  Add Recipe
                 </a>
-                <br />
-                <em>
-                <small>
-                {{ recipe.name }} recipe information powered by
-                <a href="http://www.yummly.com" target="_blank">Yummly</a>
-                </small>
-                </em>
-              </p>
-          </div><!--end recipe details-->
+              {% endif %}
+            </div>
+            
+          </div>
+          </div><!--end main contents-->
+          <div class="col-md-4">
+            
+            </div><!--end side contents-->
+          </div>
         </div>
-      </div><!--end main contents-->
-      <div class="col-md-4">
-        
-      </div><!--end side contents-->
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="recipe-suggestion">
-          <div class="recipe-detail-suggestion"> 
-            <ul class="nav nav-tabs">
-              <li class="active">
-                <a  href="#1" data-toggle="tab">Suggested Recipes</a>
-              </li>
-              <li><a href="#2" data-toggle="tab">Suggested Videos</a>
-              </li>
-            </ul>
-            <div class="tab-content ">
-              <div class="tab-pane active" id="1">
-                <div class="panel-body">
-                  {% for recipe in suggested_recipes %}
-                    <div class="col-xs-18 col-sm-12 col-md-4 paddLR0">
-                      <div class="thumbnail">
-                        <div class="thumb">
-                          <a href="{% url 'recipe-detail' slug=recipe.slug %}">
-                            {% if recipe.large_image %}
-                              <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}">
-                            {% else %}
-                              <img src="http://placehold.it/360x240">
-                            {% endif %}
-                          </a>
+      </section>
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="recipe-suggestion">
+                <div class="recipe-detail-suggestion">
+                  <ul class="nav nav-tabs subnav-list">
+                    <li class="active">
+                      <a  href="#1" data-toggle="tab"><h5>Suggested Recipes</h5></a>
+                    </li>
+                    <li><a href="#2" data-toggle="tab"><h5>Suggested Videos</h5></a>
+                  </li>
+                </ul>
+                <div class="tab-content ">
+                  <div class="tab-pane active" id="1">
+                    <div class="panel-body">
+                      {% for recipe in suggested_recipes %}
+                        <div class="col-xs-18 col-sm-12 col-md-4 paddLR0">
+                          <div class="thumbnail">
+                            <div class="thumb">
+                              <a href="{% url 'recipe-detail' slug=recipe.slug %}">
+                                {% if recipe.large_image %}
+                                  <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}">
+                                {% else %}
+                                  <img src="http://placehold.it/360x240">
+                                {% endif %}
+                              </a>
+                            </div>
+                          </div>
                         </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="2">
+                    <div class="panel-body">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" width="500" height="250" src="http://www.youtube.com/embed?listType=search&amp;list=how to make {{ recipe.name }}" frameborder="0" allowfullscreen></iframe>
                       </div>
                     </div>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="tab-pane" id="2">
-                <div class="panel-body">
-                  <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" width="500" height="250" src="http://www.youtube.com/embed?listType=search&amp;list=how to make {{ recipe.name }}" frameborder="0" allowfullscreen></iframe>
                   </div>
                 </div>
               </div>
+              </div><!--end suggested items-->
             </div>
           </div>
-        </div><!--end suggested items-->
-      </div>
-    </div>
-  </div>
-</section>
-
-{% if user.is_authenticated %}
-<!-- Modal -->
-<div id="addRecipe" class="modal fade" role="dialog">
-  <div class="modal-dialog sm">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">New Collection</h4>
-      </div>
-      <div class="modal-body">
-        {% crispy form %}
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-
-<!--/container-->
-{% endblock %}
+        </div>
+      </section>
+      {% if user.is_authenticated %}
+        <!-- Modal -->
+        <div id="addRecipe" class="modal fade" role="dialog">
+          <div class="modal-dialog sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Collection</h4>
+              </div>
+              <div class="modal-body">
+                {% crispy form %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <!--/container-->
+    {% endblock %}

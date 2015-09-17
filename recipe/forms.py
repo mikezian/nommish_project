@@ -41,7 +41,7 @@ class SearchKeywordForm(forms.Form):
     keyword = forms.CharField(
         max_length=200,
         label='',
-        widget=forms.TextInput(attrs={'placeholder': 'Searching for recipes'})
+        widget=forms.TextInput(attrs={'placeholder': 'Looking for recipes?'})
     )
 
     def __init__(self, *args, **kwargs):
@@ -55,12 +55,12 @@ class SearchKeywordForm(forms.Form):
         self.helper.form_class = 'navbar-form'
         self.helper.layout = Layout(
             HTML(
-                '<div class="">'
+                '<div class="input-group-sm">'
             ),
             FieldWithButtons(
-                Field('keyword', css_class='input-large'),
+                Field('keyword', css_class='input-sm form-control'),
                 HTML("""
-                    <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                    <button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
                 """),
             ),
             HTML('</div>'),

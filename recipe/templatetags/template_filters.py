@@ -54,6 +54,10 @@ def pagination_limited_page_range(object, current_page):
             return object[(current_page - remainder):current_page+(page_range - remainder)]
         return object[(current_page - remainder):(current_page+(page_range - remainder - 1))]
 
+# https://stackoverflow.com/questions/1107737/numeric-for-loop-in-django-templates
+@register.filter(name='loop_range') 
+def loop_range(number):
+    return range(1, number+1)
 
 # https://stackoverflow.com/questions/2047622/how-to-paginate-django-with-other-get-variables
 @register.simple_tag

@@ -1,5 +1,6 @@
-<ul class="dropdown-menu">
-    {% for course in courses %}
-    <li><a href="{% url 'course-list' course.name|slugify %}">{{ course.name }}</a></li>
-    {% endfor %}
-</ul>
+{% if courses %}
+{% for course in courses %}
+<li><a href="{% url 'course-list' course.slug %}">{{ course.name }}</a></li>
+{% endfor %}
+<li><a href="{% url 'courses' %}">more...</a></li>
+{% endif %}
