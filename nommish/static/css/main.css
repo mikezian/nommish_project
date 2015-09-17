@@ -3,7 +3,7 @@
   background-color: #f5f5f5;
   margin-bottom: 20px;
 }
-.thumbnail { padding:0; overflow: hidden; }
+.thumbnail { padding:0; overflow: hidden; margin-bottom: 10px;}
 .thumb { position: relative; overflow:hidden; clear:none;  }
 .thumb img { width:100%; }
 .thumb a > img { height: 155px; width:100%; }
@@ -13,7 +13,7 @@ top: 70%;
 height: 30%; 
 width: 100%;
 z-index:2;
-background: rgba(0,0,0,0.30);
+background: rgba(0,0,0,0.40);
 padding:10px;
 }
 
@@ -45,7 +45,13 @@ div .collection-name {
 .recipe-description {
   line-height: 24px;
 }
-
+ul.source-text {
+    padding-left: 10px;
+    list-style: none;
+}
+.thumbnail .caption {
+  padding: 10px 0 ;
+}
 /* end bootstrap material card */
 html {
   position: relative;
@@ -59,6 +65,22 @@ body {
 h1, h2, h3, h4, h5 {
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+h1 {
+  font-size: 40px;
+}
+h2 {
+  font-size: 36px;
+}
+h3 {
+  font-size: 28px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 16px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -69,8 +91,23 @@ h1, h2, h3, h4, h5 {
 }
 .navbar-brand {
   font-family: "Dancing Script","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 44px;
+  font-size: 60px;
+  font-weight: 600;
 }
+.top-cover {
+height: 200px;
+}
+/* 
+.gallery figure {
+    background-color:rgba(0, 0, 0, 0.8);
+    background: #000 url("http://127.0.0.1:8000/static/img/italian-cuisine.jpg") center center;
+    background-size: cover;
+    font-size: 100px;
+}
+.gallery .control-button .top-cover-control {
+  font-size:100px;
+} 
+*/
 .container {
   width: auto;
   max-width: 980px;
@@ -80,7 +117,13 @@ h1, h2, h3, h4, h5 {
   margin: 20px 0;
 }
 .subnav {
-  margin: 23px 0 13px 0;
+  background-color: #fff;
+}
+.subnav-list {
+  border-bottom: 1px solid #ccc;
+}
+.list-main-item {
+  font-weight: 700;
 }
 .navbar .account-info {
   padding: 3px 20px;

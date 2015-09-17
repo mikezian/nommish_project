@@ -1,0 +1,87 @@
+.gallery .control-button {
+  color: #ccc;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.gallery .control-button:hover {
+  color: white;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/*
+	Theme controls how everything looks in Gallery CSS.
+*/
+.gallery {
+  position: relative;
+}
+.gallery .item {
+  height: 400px;
+  overflow: hidden;
+  text-align: center;
+  background: #4d87e2;
+}
+.gallery .controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.gallery .control-button {
+  display: inline-block;
+  margin: 0 .02em;
+  font-size: 3em;
+  text-align: center;
+  text-decoration: none;
+  transition: color .1s;
+}
+/* Customise styling */
+.gallery .item {
+  height: 200px;
+  background: #ccc;
+  display: inline-block;
+}
+.gallery .item .gradient {
+    position:absolute;
+    z-index:0;
+    right:0; bottom:0; left:0;
+    height: 200px;
+    width:100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.35);
+
+}
+.gallery .item .content {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+
+}
+.gallery .item .content:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;/* 
+    z-index: 1; */
+
+}
+.gallery .item .content .caption {
+  position: relative;
+  display: block;
+  vertical-align: middle;
+  z-index: 2;
+  font-size: 32px;
+  
+}
+.gallery .item .content .caption h3, .gallery .item .content .caption a {
+  color: #fff;  
+}
+.gallery .top-cover-control {
+  font-size:24px;
+  color: #bdbdbd;
+  z-index: 2;
+}
