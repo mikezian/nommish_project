@@ -13,6 +13,7 @@ INSTALLED_APPS = INSTALLED_APPS + (
 
 )
 
+
 #ALLOWED_HOSTS = ALLOWED_HOSTS + ['127.0.0.1']
 
 # debug toolbar
@@ -30,3 +31,11 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
+
+# DJANGO REST FrameWork
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
