@@ -8,6 +8,8 @@ django-allauth
 django-braces
 django-crispy-forms
 # replace django-cachalot with something else
+django-cache-machine
+
 django-redis==4.2.0
 django-environ
 djangorestframework
