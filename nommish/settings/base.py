@@ -41,6 +41,7 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = (
+    'cache-machine',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +68,8 @@ INSTALLED_APPS = (
     'recipe',
 )
 
+ROOT_URLCONF = 'nommish.urls'
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,8 +82,6 @@ MIDDLEWARE_CLASSES = (
 
 
 )
-
-ROOT_URLCONF = 'nommish.urls'
 
 TEMPLATES = [
     {
@@ -139,10 +140,19 @@ CACHES = {
             }
         },
     },
+    'cache_machine': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'KEY_PREFIX': 'djcm',
+    },
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
+
+# cache-machine
+CACHE_COUNT_TIMEOUT = 60 * 24
+CACHE_EMPTY_QUERYSETS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -193,7 +203,7 @@ ACCOUNT_EMAIL_VERIFICATION = None
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_SESSION_COOKIE_AGE = 60*60*24
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # fixture dir
 # PROJECT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
@@ -203,6 +213,7 @@ ACCOUNT_SESSION_COOKIE_AGE = 60*60*24
 
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 # Logging config
 # http://stackoverflow.com/questions/20282521/django-request-logger-not-propagated-to-root/22336174#22336174
@@ -263,12 +274,3 @@ logging.config.dictConfig(LOGGING)
 # l = logging.getLogger('django.db.backends')
 # l.setLevel(logging.DEBUG)
 # l.addHandler(logging.StreamHandler())
-
-
-# DJANGO REST FrameWork
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    )
-}
