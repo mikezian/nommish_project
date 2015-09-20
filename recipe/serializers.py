@@ -53,15 +53,15 @@ class RecipesCollectionSerializer(serializers.ModelSerializer):
         except IntegrityError:
             # don't do anything log it
             pass
-        print 'ccc', c
         return c
 
     @staticmethod
     def delete(data):
         try:
+            recipe = Recipe.objects.get(pk=data.get('recipe'))
             c = UserCollection.objects.remove_from_collection(
                 collection=data.get('collection'),
-                recipe=data.get('recipe'),
+                recipe=recipe,
                 user=data.get('user')
             )
             # todo: delete likes
