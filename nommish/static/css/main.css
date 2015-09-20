@@ -1,181 +1,80 @@
-@import url("https://fonts.googleapis.com/css?family=Dancing+Script:400|Open+Sans:700,400");
-.nav-header {
-  background-color: #f5f5f5;
-  margin-bottom: 20px;
-}
-.thumbnail { padding:0; overflow: hidden; margin-bottom: 10px;}
-.thumb { position: relative; overflow:hidden; clear:none;  }
-.thumb img { width:100%; }
-.thumb a > img { height: 155px; width:100%; }
-.thumb a > div {
-position: absolute;
-top: 70%;
-height: 30%; 
-width: 100%;
-z-index:2;
-background: rgba(0,0,0,0.40);
-padding:10px;
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script:400|Open+Sans:700,400');
+
+html {position: relative; min-height: 100%; }
+body {font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; margin-bottom: 60px; background-color: #fafafa;}
+h1,h2,h3,h4,h5 {font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif; }
+h1 {font-size: 40px; }
+h2 {font-size: 36px; }
+h3 {font-size: 28px; }
+h4 {font-size: 20px; }
+h5 {font-size: 16px; }
+
+.footer {position: absolute; bottom: 0; width: 100%; height: 60px; background-color: #f5f5f5; }
+
+.navbar-brand {font-family: 'Dancing Script','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 60px; font-weight: 600; }
+.navbar .account-info {font-weight: 600; padding: 3px 20px; border-bottom: 1px solid #dbdbdb; }
+.navbar-default {margin-bottom: 0; }
+.nav-header {margin-bottom: 20px; background-color: #f5f5f5; }
+.top-cover {height: 200px; }
+
+#signupcontainer .panel-info > .panel-heading {color: #009688; background-color: #fff; line-height: 18px; }
+#signupcontainer .panel-info > .panel-body {padding-top: 0;}
+.container {width: auto; max-width: 980px; padding: 0 15px; }
+.container .text-muted {margin: 20px 0; }
+
+.thumbnail {overflow: hidden; margin-bottom: 10px; padding: 0; }
+.thumbnail .caption {padding: 10px 0; }
+.thumb {position: relative; clear: none; overflow: hidden; }
+.thumb img {width: 100%; }
+.thumb a > img {width: 100%; height: 155px; }
+.thumb a > div {position: absolute; z-index: 2; top: 70%; width: 100%; height: 30%; padding: 10px; background: rgba(0,0,0,.40); }
+.thumb div p {font-size: 12px; margin-bottom: 0; color: white; }
+.thumb div span {font-size: 12px; color: #009688; }
+.thumb .sm-img {position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.recipe-source {font-size: 12px; font-style: italic; margin-bottom: 12px; }
+.recipe-description {line-height: 24px; }
+ul.recipe-ingredients {list-style: none; padding-left: 0;}
+ul.recipe-ingredients > li {border-bottom: 1px solid #ddd;}
+ul.recipe-ingredients > li:last-child {border-bottom: 0;}
+
+.collection-name {visibility: visible; opacity: 1; }
+ul.source-text {padding-left: 10px; list-style: none; }
+
+.subnav {background-color: #fff; }
+.subnav-list {border-bottom: 1px solid #ccc; }
+.main-item {font-weight: 700; }
+
+/* recipe detail layout and modal */
+.modal-subheader {line-height: 10px; margin: 10px auto; }
+.collection-checkbox {margin-left: 20px; }
+input.faChkRnd,input.faChkSqr {visibility: hidden; }
+input.faChkRnd:after,input.faChkSqr:after {font-family: FontAwesome; font-size: 16px; font-weight: 300; position: relative; top: -3px; left: 0; display: inline-block; visibility: visible; width: 16px; height: 16px; color: #c0c0c0; background-color: #fff; }
+input.faChkRnd:checked:after {content: '\f05d'; color: #005951; }
+input.faChkRnd:after {content: '\f10c'; }
+
+ul.subnav-list {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+
 }
 
-.thumb .sm-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+@media (max-width: 768px) {
+ul.subnav-list li[class*="subnav-item"] {
+    display: block;
+    float: none;
 }
-div .collection-name { 
-   opacity: 1;
-   visibility: visible;
 }
-.thumb div p {
-  margin-bottom: 0;
-   font-size: 12px;
-   color: white;
+@media (min-width: 768px) {
+ul.subnav-list li[class*="subnav-item"] {
+    display: inline-block;
+    float: none;
 }
-.thumb div span {
-   font-size: 12px;
-   color: #009688;
-}
-.recipe-source {
-  font-size:12px;
-  font-style: italic;
-  margin-bottom: 12px;
-}
-.recipe-description {
-  line-height: 24px;
-}
-ul.source-text {
-    padding-left: 10px;
-    list-style: none;
-}
-.thumbnail .caption {
-  padding: 10px 0 ;
-}
-/* end bootstrap material card */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-h1, h2, h3, h4, h5 {
-  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-h1 {
-  font-size: 40px;
-}
-h2 {
-  font-size: 36px;
-}
-h3 {
-  font-size: 28px;
-}
-h4 {
-  font-size: 20px;
-}
-h5 {
-  font-size: 16px;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
-}
-.navbar-brand {
-  font-family: "Dancing Script","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 60px;
-  font-weight: 600;
-}
-.top-cover {
-height: 200px;
-}
-/* 
-.gallery figure {
-    background-color:rgba(0, 0, 0, 0.8);
-    background: #000 url("http://127.0.0.1:8000/static/img/italian-cuisine.jpg") center center;
-    background-size: cover;
-    font-size: 100px;
-}
-.gallery .control-button .top-cover-control {
-  font-size:100px;
-} 
-*/
-.container {
-  width: auto;
-  max-width: 980px;
-  padding: 0 15px;
-}
-.container .text-muted {
-  margin: 20px 0;
-}
-.subnav {
-  background-color: #fff;
-}
-.subnav-list {
-  border-bottom: 1px solid #ccc;
-}
-.list-main-item {
-  font-weight: 700;
-}
-.navbar .account-info {
-  padding: 3px 20px;
-  font-weight: 600;
-  border-bottom: 1px solid #dbdbdb;
-}
-.navbar-default {margin-bottom: 0px; }
-
-/*.nav-pills > li.active > a.active-subnav {
-  background-color: #fff;
-  color: #616161;
-}*/
-.modal-subheader {
-  margin: 10px auto;
-  line-height: 10px;
-}
-
-.signup-container {
-  padding:50px 0;
-}
-
-.collection-checkbox {
-  margin-left: 20px;
-}
-
-
-
-input.faChkRnd, input.faChkSqr {
-  visibility: hidden;
-}
-
-input.faChkRnd:after,
-input.faChkSqr:after {
-  visibility: visible;
-  font-family: FontAwesome;
-  font-size:16px;
-  height: 16px; 
-  width: 16px;
-  position: relative;
-  top: -3px;
-  left: 0px;
-  background-color:#FFF;
-  color: #c0c0c0;
-  display: inline-block;
-  font-weight: 300;
-}
-
-input.faChkRnd:checked:after {
-  content: '\f05d';
-  color: #005951;
-}
-
-input.faChkRnd:after {
-  content: '\f10c';
+ul.subnav-list li[class*="subnav-item"]:first-child {
+    margin-left: 0;
 }

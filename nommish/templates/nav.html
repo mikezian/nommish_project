@@ -2,6 +2,7 @@
 {% load recipe_tags %}
 <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
 <link rel="stylesheet" href="{% static 'css/gallery.theme.css' %}">
+
 <header class="nav-header">
     <!--header-->
     <nav class="navbar navbar-default" role="navigation">
@@ -57,9 +58,8 @@
     <section class="subnav">
         <div class="container">
             <div class="row">
-                <div class="">
+                <div class="col-lg-12">
                     <ul class="nav nav-tabs subnav-list">
-                        <li><a class="main-item" href="/">All Recipes</a></li>
                         {% recipe_course_list %}
                     </ul>
                 </div>

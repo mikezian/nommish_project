@@ -1,6 +1,7 @@
 {% if courses %}
+<li class="subnav-item"><a class="main-item" href="/">All Recipes</a></li>
 {% for course in courses %}
-<li><a href="{% url 'course-list' course.slug %}">{{ course.name }}</a></li>
+<li class="subnav-item"><a href="{% url 'course-list' course.slug %}">{{ course.name }}</a></li>
 {% endfor %}
-<li><a href="{% url 'courses' %}">more...</a></li>
+<li class="subnav-item"><a href="{% url 'courses' %}">more...</a></li>
 {% endif %}

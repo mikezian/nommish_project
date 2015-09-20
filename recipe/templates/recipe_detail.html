@@ -86,9 +86,9 @@
   'data': payload,
   'success': function(json) {
   if (method == 'DELETE') {
-  _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">removed from collection</small>)</span>');
+  _this.parent().append('<span class="alert-notification">(<small class="text-success">removed from collection</small>)</span>');
   } else {
-  _this.parent().append('<span class="alert-notification">(<small class="alert-success alert-link">added to collection</small>)</span>');
+  _this.parent().append('<span class="alert-notification">(<small class="text-success">added to collection</small>)</span>');
   }
   $('.alert-notification').fadeOut(2500);
   }
@@ -103,19 +103,19 @@
       <div class="row">
         <div class="col-md-10">
           <h2>{{ recipe.name }}</h2>
-          <div class="recipe-source">
-            Source: <a href="{% url 'recipe-source-redirect' slug=recipe.slug %}" target="_blank">{{ recipe.attribution_url }}</a>
-          </div>
           <div class="row">
             <div class="col-md-7 recipe-description">
-              <p><strong>Ingredients: </strong>
-                <ul>
+              <h4>Ingredients</h4>
+                <ul class="recipe-ingredients">
                   {% for ingredient in recipe.ingredients|format_ingredients %} <li>{{ ingredient }}</li>
                 {% endfor %}
               </ul>
-            </p>
-            <p><strong>Preparation Time: </strong> {{ recipe.preparation_time|prettify_time_in_seconds }} </p>
-            <p><strong>Servings: </strong> {{ recipe.servings }} </p>
+              <ul class="list-inline">
+                <li><strong>Preparation Time: </strong></li>
+                <li>{{ recipe.preparation_time|prettify_time_in_seconds }}</li>
+                <li><strong>Servings: </strong></li>
+                <li>{{ recipe.servings }}</li>
+              </ul>
             {% if recipe.courses.all %}
               <p><strong>Course: </strong>
                 {% for c in recipe.courses.all %} <a href="{% url 'course-list' slug=c.slug %}">{{ c.name }}</a>
@@ -157,6 +157,9 @@
                   Add Recipe
                 </a>
               {% endif %}
+              <div class="recipe-source">
+                Source: <a href="{% url 'recipe-source-redirect' slug=recipe.slug %}" target="_blank">{{ recipe.attribution_url }}</a>
+              </div>
             </div>
             
           </div>

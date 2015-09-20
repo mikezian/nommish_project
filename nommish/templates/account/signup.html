@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="panel-body">
-			<p>{% blocktrans %}Already have an account, <a id="signin_link" href="{{ login_url }}">sign in</a> here.{% endblocktrans %}</p>
+			<small class="text-muted">{% blocktrans %}Already have an account, <a id="signin_link" href="{{ login_url }}">sign in</a> here.{% endblocktrans %}</small>
 			<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
 				{% csrf_token %}
 				{% bootstrap_form form %}
