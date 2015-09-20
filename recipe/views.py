@@ -48,7 +48,7 @@ class SearchListView(ListView):
         count = kwargs.get('context').get('paginator').count
         if count:
             return '%s recipes found' % count
-        return 'No recipes'
+        return 'No recipes found'
 
     def get_queryset(self):
         try:
@@ -167,7 +167,6 @@ class RecipeCuisineListView(CollectionListingsView, ListView):
         return '%s Recipes' % self.kwargs['slug'].replace('-', ' ').title()
 
 
-
 class CollectionView(ListView):
     context_object_name = 'collections'
     template_name = "collection_list.html"
@@ -218,8 +217,6 @@ class SourceListView(CollectionView, ListView):
     title = 'Recipe by Source'
     reverse_url = 'recipe-source-list'
     paginate_by = 20
-
-
 
 
 class RecipeCollectionListView(ListView):
@@ -278,23 +275,26 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(RecipeDetailView, self).get_context_data(**kwargs)
-        _course_info = self.get_queryset().all()[0]
-        course_info = _course_info.courses.all()
-        # holiday_info = _course_info.holidays.all()
-        # cuisine_info = _course_info.cuisines.all()
+        recipe = self.get_queryset().all()[0]
+        # increment count
+        if not self.request.session.get('recipe_viewed_%s' % recipe.pk, None):
+            recipe.increment_views()
+            self.request.session['recipe_viewed_%s' % recipe.pk] = 1
+        logger.error('recipe views %s', recipe.views)
+        logger.error('recipe session %s', self.request.session.keys())
+        course_info = recipe.courses.all()
+        holiday_info = recipe.holidays.all()
+
 
         context['title'] = context['recipe'].name
 
         s = Search(using=es, index='recipe')
-        _course_info = self.get_queryset().all()[0]
-        course_info = _course_info.courses.all()
-        holiday_info = _course_info.holidays.all()
 
         exclude_clause = []
         match_clause = []
 
         exclude_clause.append(
-            {"term": {"document_id": _course_info.id}}
+            {"term": {"document_id": recipe.id}}
         )
         if course_info:
             course_id = course_info[0].id
@@ -303,7 +303,7 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
             holiday_id = holiday_info[0].id
             match_clause.append({'match': {'holidays': holiday_id}})
 
-        match_clause.append({'match': {'name': {'query': _course_info.name, 'boost': 2}}})
+        match_clause.append({'match': {'name': {'query': recipe.name, 'boost': 2}}})
 
         s = Search(using=es, index='recipe')
         s.update_from_dict({
@@ -321,7 +321,7 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
                 }
             }
         })
-        
+
         s = s.extra(size=6)
         results = s.execute()
         context['suggested_recipes'] = results
@@ -346,10 +346,11 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
 class RecipeSourceRedirectView(RecipeDetailView):
 
     def dispatch(self, request, *args, **kwargs):
-        recipe = self.get_queryset()
-        # todo: increment views
+        recipe = self.get_queryset().all()
+        print recipe[0].source_url
         url_info = urlparse(recipe[0].source_url)
-        return HttpResponseRedirect('http://%s' % url_info.path)
+        print url_info
+        return HttpResponseRedirect('http://%s%s' % (url_info.netloc, url_info.path))
 
 
 ############ API ####################
