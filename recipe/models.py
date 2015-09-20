@@ -10,13 +10,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
+from caching.base import CachingManager, CachingMixin
+
 from slugify import slugify
 
 def slugify_url_hash(title, max_length):
     h = hashlib.sha1()
     h.update(str(time.time()))
     _title = slugify(title)[:39]
-    print 'slug', '%s-%s' % (_title, h.hexdigest()[:10])
     return '%s-%s' % (_title, h.hexdigest()[:10])
 
 class Profile(models.Model):
@@ -48,7 +49,7 @@ class Profile(models.Model):
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
 
 
-class Cuisine(models.Model):
+class Cuisine(CachingMixin, models.Model):
     CUISINE_CHOICES = (
         ('1', 'American'),
         ('2', 'Italian'),
@@ -80,6 +81,8 @@ class Cuisine(models.Model):
     name = models.CharField(max_length=50, choices=CUISINE_CHOICES, default='1')
     slug = models.SlugField(db_index=True, null=True)
     cover = models.TextField(null=True)
+    objects = CachingManager()
+
 
     class Meta:
         db_table = 'nommish_cuisine'
@@ -90,7 +93,7 @@ class Cuisine(models.Model):
         super(Cuisine, self).save(*args, **kwargs)
 
 
-class Course(models.Model):
+class Course(CachingMixin, models.Model):
     COURSE_CHOICES = (
         ('1', 'Main Dishes'),
         ('2', 'Desserts'),
@@ -109,6 +112,7 @@ class Course(models.Model):
     name = models.CharField(max_length=50, choices=COURSE_CHOICES, default='1')
     slug = models.SlugField(db_index=True, null=True)
     cover = models.TextField(null=True)
+    objects = CachingManager()
 
     class Meta:
         db_table = 'nommish_course'
@@ -118,7 +122,7 @@ class Course(models.Model):
             self.slug = slugify(self.name)
         super(Course, self).save(*args, **kwargs)
 
-class Holiday(models.Model):
+class Holiday(CachingMixin, models.Model):
     HOLIDAY_CHOICES = (
         ('1', 'Christmas'),
         ('2', 'Summer'),
@@ -133,6 +137,7 @@ class Holiday(models.Model):
     name = models.CharField(max_length=50, choices=HOLIDAY_CHOICES, default='1')
     slug = models.SlugField(db_index=True, null=True)
     cover = models.TextField(null=True)
+    objects = CachingManager()
 
     class Meta:
         db_table = 'nommish_holiday'
@@ -161,6 +166,7 @@ class UserCollectionManager(models.Manager):
         collection.cover = recipe.large_image
         collection.save()
         rc = RecipesCollection.objects.create(collection=collection, recipe=recipe)
+        recipe.increment_likes()
         return rc
 
     def remove_from_collection(self, collection, user, recipe):
@@ -168,8 +174,9 @@ class UserCollectionManager(models.Manager):
         This method deletes recipe from recipe collection.
         """
         collection = UserCollection.objects.get(user=user, id=collection)
-        rc = RecipesCollection.objects.filter(collection=collection, recipe_id=recipe)
+        rc = RecipesCollection.objects.filter(collection=collection, recipe=recipe)
         rc.delete()
+        recipe.decrement_likes()
         return rc
 
 class UserCollection(models.Model):
@@ -183,13 +190,6 @@ class UserCollection(models.Model):
     class Meta:
         db_table = 'nommish_user_collection'
 
-    @classmethod
-    def user_collection_count(cls, user):
-        collections = cls.objects.filter(user=user)\
-            .values('name', 'slug', 'cover')\
-            .annotate(count=models.Count('user_collections'))
-        return collections
-
     def __str__(self):
         return self.name
 
@@ -198,10 +198,17 @@ class UserCollection(models.Model):
             self.slug = slugify_url_hash(self.name, 50)
         super(UserCollection, self).save(*args, **kwargs)
 
+    @classmethod
+    def user_collection_count(cls, user):
+        collections = cls.objects.filter(user=user)\
+            .values('name', 'slug', 'cover')\
+            .annotate(count=models.Count('user_collections'))
+        return collections
+
 from .managers import RecipeManager
 
 
-class Recipe(models.Model):
+class Recipe(CachingMixin, models.Model):
     id = models.AutoField(primary_key=True)
     recipe_source_id = models.CharField(max_length=4000, unique=True)
     name = models.CharField(max_length=2000)
@@ -239,6 +246,18 @@ class Recipe(models.Model):
         if not self.source_slug:
             self.source_slug = slugify(self.source_text)[:50]
         super(Recipe, self).save(*args, **kwargs)
+
+    def increment_views(self):
+        self.views += 1
+        self.save()
+
+    def increment_likes(self):
+        self.likes += 1
+        self.save()
+
+    def decrement_likes(self):
+        self.likes -= 1
+        self.save()
 
 class RecipesCollection(models.Model):
     collection = models.ForeignKey(UserCollection, verbose_name='user_collections', related_name='user_collections', default=None)
