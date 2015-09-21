@@ -41,7 +41,6 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = (
-    'cache-machine',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
