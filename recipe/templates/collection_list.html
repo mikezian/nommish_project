@@ -10,15 +10,15 @@
 <div class="row">
 {% if collections %}
 {% for collection in collections %}
-    <div class="col-md-3 center-block">
+    <div class="col-md-3 col-sm-3 col-xs-12">
       <div class="thumbnail">
-            <div class="thumb">
+            {% if collection.cover %}
+             <div class="thumb" class="content" style="background: #000 url('{{collection.cover}}') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+            {% else %}
+             <div class="thumb" class="content" style="background: #000 url('http://placehold.it/360x240') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+            {% endif %}
                 <a href="{{ collection.url }}">
-                    {% if collection.cover %}
-                    <img src="{{ collection.cover }}">
-                    {% else %}
-                    <img src="http://placehold.it/360x240">
-                    {% endif %}
+                    <img class="empty" />
                     <div class="collection-name">
                         <p>{{ collection.name|upper }} ({{ collection.count }})</p>
                     </div>

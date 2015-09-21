@@ -2,15 +2,15 @@
 <div class="row">
 <!-- Recipe Cards -->
 {% for recipe in recipe_list %}
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-12">
       <div class="thumbnail">
-            <div class="thumb">
+            {% if recipe.large_image %}
+             <div class="thumb" class="content" style="background: #000 url('{{recipe.large_image}}') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+            {% else %}
+             <div class="thumb" class="content" style="background: #000 url('http://placehold.it/360x240') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+            {% endif %}
                 <a href="{% url 'recipe-detail' slug=recipe.slug %}">
-                {% if recipe.large_image %}
-                <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}">
-                {% else %}
-                <img src="http://placehold.it/360x240"  height="195">
-                {% endif %}
+                <img class="empty" />
                 <div>
                     <p>{{ recipe.name|truncatechars_html:25}}</p>
                     <span>{{ recipe.course.name }}</span>
