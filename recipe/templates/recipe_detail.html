@@ -189,13 +189,13 @@
                       {% for recipe in suggested_recipes %}
                         <div class="col-xs-18 col-sm-12 col-md-4 paddLR0">
                           <div class="thumbnail">
-                            <div class="thumb">
+                            {% if recipe.large_image %}
+                            <div class="thumb" class="content" style="background: #000 url('{{recipe.large_image}}') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+                            {% else %}
+                             <div class="thumb" class="content" style="background: #000 url('http://placehold.it/360x240') center center; -ms-background-size: cover; -o-background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-size: cover;" height="195">
+                            {% endif %}
                               <a href="{% url 'recipe-detail' slug=recipe.slug %}">
-                                {% if recipe.large_image %}
-                                  <img alt="{{ recipe.name }}" title="{{ recipe.name }}" src="{{ recipe.large_image }}">
-                                {% else %}
-                                  <img src="http://placehold.it/360x240">
-                                {% endif %}
+                                <img class="empty" />
                               </a>
                             </div>
                           </div>

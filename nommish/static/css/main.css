@@ -24,7 +24,7 @@ h5 {font-size: 16px; }
 
 .thumbnail {overflow: hidden; margin-bottom: 10px; padding: 0; }
 .thumbnail .caption {padding: 10px 0; }
-.thumb {position: relative; clear: none; overflow: hidden; }
+.thumb {position: relative; clear: none; overflow: hidden; height: 195px;}
 .thumb img {width: 100%; }
 .thumb a > img {width: 100%; height: 155px; }
 .thumb a > div {position: absolute; z-index: 2; top: 70%; width: 100%; height: 30%; padding: 10px; background: rgba(0,0,0,.40); }
@@ -50,7 +50,7 @@ ul.source-text {padding-left: 10px; list-style: none; }
 .modal-subheader {line-height: 10px; margin: 10px auto; }
 .collection-checkbox {margin-left: 20px; }
 input.faChkRnd,input.faChkSqr {visibility: hidden; }
-input.faChkRnd:after,input.faChkSqr:after {font-family: FontAwesome; font-size: 16px; font-weight: 300; position: relative; top: -3px; left: 0; display: inline-block; visibility: visible; width: 16px; height: 16px; color: #c0c0c0; background-color: #fff; }
+input.faChkRnd:after,input.faChkSqr:after {font-family: FontAwesome; font-size: 16px; font-weight: 300; position: relative; top: 0x; left: 0; display: inline-block; visibility: visible; width: 16px; height: 16px; color: #c0c0c0; background-color: #fff; }
 input.faChkRnd:checked:after {content: '\f05d'; color: #005951; }
 input.faChkRnd:after {content: '\f10c'; }
 
