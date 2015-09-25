@@ -34,6 +34,7 @@ DB_PASSWORD = env("DB_PASSWORD")
 DB_USER = env("DB_USER")
 YUMMLY_API_KEY = env("YUMMLY_API_KEY")
 YUMMLY_APP_KEY = env("YUMMLY_APP_KEY")
+GOOGLE_ANALYTICS_KEY = env("GOOGLE_ANALYTICS_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
