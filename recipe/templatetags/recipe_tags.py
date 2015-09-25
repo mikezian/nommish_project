@@ -25,6 +25,6 @@ def top_slider_contents():
     }
 @register.inclusion_tag('_recipe_course_list.html')
 def recipe_course_list():
-    course_list = ['Breakfast and Brunch', 'Main Dishes', 'Desserts', 'Lunch and Snacks', 'Beverages', 'Salads', 'Side Dishes']
+    course_list = ['Breakfast and Brunch', 'Main Dishes', 'Desserts', 'Lunch and Snacks', 'Beverages', 'Salads']
     courses = Course.objects.filter(name__in=course_list).all()
     return {'courses': courses}
