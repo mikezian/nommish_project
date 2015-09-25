@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django import template
 from ..models import Course
@@ -23,8 +25,14 @@ def top_slider_contents():
             }
         ]
     }
+
 @register.inclusion_tag('_recipe_course_list.html')
 def recipe_course_list():
     course_list = ['Breakfast and Brunch', 'Main Dishes', 'Desserts', 'Lunch and Snacks', 'Beverages', 'Salads']
     courses = Course.objects.filter(name__in=course_list).all()
     return {'courses': courses}
+
+# settings value
+@register.assignment_tag
+def settings_value(name):
+    return getattr(settings, name, "")
