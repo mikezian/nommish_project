@@ -1,5 +1,4 @@
-{% load staticfiles %} 
-{% load recipe_tags %}
+{% load staticfiles %}
 <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
 <link rel="stylesheet" href="{% static 'css/gallery.theme.css' %}">
 
@@ -15,7 +14,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">nommish</a>
+                    <a class="navbar-brand" href="{% url 'recipes' %}">nommish</a>
                 </div>
                 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -49,21 +48,10 @@
             </div>
         </div>
     </nav>
-    <section class="">
-        <div class="top-cover">
-            {% top_slider_contents %}
-        </div>
-    </section>
+    {% if request.path == '/' %}
+
+    {% include "header_coverlist.html" %}
     <!--subheader-->
-    <section class="subnav">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs subnav-list">
-                        {% recipe_course_list %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include "subnav_courselist.html" %}
+    {% endif %}
 </header>
