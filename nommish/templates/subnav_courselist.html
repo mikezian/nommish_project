@@ -1,0 +1,15 @@
+{% load staticfiles %} 
+{% load recipe_tags %}
+<section class="subnav">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="subnav-container">
+                    <ul class="nav nav-tabs subnav-list list-inline">
+                        {% recipe_course_list %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

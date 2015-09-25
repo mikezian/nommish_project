@@ -43,7 +43,6 @@ ul.recipe-ingredients > li:last-child {border-bottom: 0;}
 ul.source-text {padding-left: 10px; list-style: none; }
 
 .subnav {background-color: #fff; }
-.subnav-list {border-bottom: 1px solid #ccc; }
 .main-item {font-weight: 700; }
 
 /* recipe detail layout and modal */
@@ -54,16 +53,19 @@ input.faChkRnd:after,input.faChkSqr:after {font-family: FontAwesome; font-size: 
 input.faChkRnd:checked:after {content: '\f05d'; color: #005951; }
 input.faChkRnd:after {content: '\f10c'; }
 
+div.subnav-container {
+    width:100%;
+    overflow:hidden;
+    border-bottom: 2px solid #ccc;
+}
 ul.subnav-list {
     margin: 0;
     padding: 0;
-    width: 100%;
     white-space: nowrap;
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
+    width:100%;
+    display: block;
 
 }
-
 @media (max-width: 768px) {
 ul.subnav-list li[class*="subnav-item"] {
     display: block;
@@ -74,6 +76,14 @@ ul.subnav-list li[class*="subnav-item"] {
 ul.subnav-list li[class*="subnav-item"] {
     display: inline-block;
     float: none;
+}
+.nav-tabs>li>a {
+    font-size: 10px;
+}
+}
+@media (min-width: 980px) {
+.nav-tabs>li>a {
+    font-size: 13px;
 }
 }
 
