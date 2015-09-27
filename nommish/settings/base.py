@@ -274,3 +274,6 @@ logging.config.dictConfig(LOGGING)
 # l = logging.getLogger('django.db.backends')
 # l.setLevel(logging.DEBUG)
 # l.addHandler(logging.StreamHandler())
+
+FIXTURE_DIRS = os.path.join(BASE_DIR, "fixtures")
+
