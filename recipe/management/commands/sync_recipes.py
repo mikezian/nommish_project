@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from optparse import make_option
+import datetime
 import urllib
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.utils import IntegrityError
 
-
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 from yummly import Client
@@ -43,17 +45,21 @@ class Command(BaseCommand):
         # course = 'Main Dishes'
         # course = 'course^course-{}'.format(course)
         # params.update({'allowedCourse[]': course})
+        current_date = datetime.date.today()
+        current_date = current_date.strftime('%Y%m%d')
+        key = 'syncrecipe::%s' % current_date
         c = Client(
                 api_id=settings.YUMMLY_APP_KEY,
                 api_key=settings.YUMMLY_API_KEY
         )
-        counter = 1
+        ctr = 1
         res = c.search(**params)
         for item in res.matches:
+            ctr = cache.get(key, 1)
             if Recipe.objects.filter(recipe_source_id=item.id).first():
                 print 'recipe already stored ', item.id
                 continue
-            if counter > 470:
+            if ctr > 480:
                 print 'Exiting: Yummly quota limit'
                 return
             recipe = c.recipe(item.id)
@@ -109,4 +115,6 @@ class Command(BaseCommand):
                 print 'cuisine err: ', e.message, item.id, attr
             finally:
                 print 'done cuisine'
+            cache.set(key, ctr + 1)
         print "total recipes", res.totalMatchCount
+        call_command('index_recipes', verbosity=3, interactive=False)
