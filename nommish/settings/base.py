@@ -207,9 +207,6 @@ ACCOUNT_SESSION_COOKIE_AGE = 60*60*24
 
 # fixture dir
 # PROJECT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-# FIXTURE_DIRS = (
-#     os.path.join(PROJECT_DIR, 'fixtures'),
-# )
 
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -274,6 +271,3 @@ logging.config.dictConfig(LOGGING)
 # l = logging.getLogger('django.db.backends')
 # l.setLevel(logging.DEBUG)
 # l.addHandler(logging.StreamHandler())
-
-FIXTURE_DIRS = os.path.join(BASE_DIR, "fixtures")
-
