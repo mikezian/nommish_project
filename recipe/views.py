@@ -125,6 +125,14 @@ class RecipeListView(CollectionListingsView, ListView):
         )
         return qs
 
+    def get_context_data(self, **kwargs):
+        context = super(CollectionListingsView, self).get_context_data(**kwargs)
+        kwargs['context'] = context
+        context['title'] = self.get_page_title(**kwargs)
+        context['total_recipe'] = context.get('paginator').count
+        context['main_searchform'] = SearchKeywordForm()
+        return context
+
 class RecipeSourceListView(CollectionListingsView, ListView):
     allow_empty = False
 
@@ -341,6 +349,7 @@ class RecipeDetailView(PrefetchRelatedMixin, DetailView):
                 initial=initial
             )
         context['searchform'] = SearchKeywordForm()
+        context['current_recipe_name'] = recipe.name
         return context
 
 class RecipeSourceRedirectView(RecipeDetailView):
