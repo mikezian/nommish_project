@@ -58,9 +58,9 @@ class SearchKeywordForm(forms.Form):
                 '<div class="input-group-sm">'
             ),
             FieldWithButtons(
-                Field('keyword', css_class='input-sm form-control'),
+                Field('keyword', css_class='form-control'),
                 HTML("""
-                    <button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                    <button type="submit" class="btn btn-default btn-info"><span class="glyphicon glyphicon-search"></span></button>
                 """),
             ),
             HTML('</div>'),
@@ -100,7 +100,7 @@ class UserRecipeCollectionForm(forms.Form):
                     Div(
                         FieldWithButtons(
                             Field('name', css_class='input-large', title='Collection Name', placeholder='My Collection'),
-                            StrictButton("Add", css_class='btn-add'),
+                            StrictButton("Save", css_class='btn-add'),
                         ),
                         css_class="col-md-12",
                     ),
