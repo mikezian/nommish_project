@@ -27,7 +27,7 @@
     <!-- /container -->
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Nommish.com - Recipe discovery app powered by <a href="http://www.yummly.com">Yummly</a></p>
+        <p class="text-muted">Nommish.com - {% if current_recipe_name %}{{current_recipe_name}} recipe {% else %} Recipe discovery app {% endif %} powered by <a href="http://www.yummly.com">Yummly</a></p>
       </div>
     </footer>
     <!--js footer -->
