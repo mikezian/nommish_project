@@ -15,7 +15,11 @@ h5 {font-size: 14px; }
 .navbar .account-info {font-weight: 600; padding: 3px 20px; border-bottom: 1px solid #dbdbdb; }
 .navbar-default {margin-bottom: 0; }
 .nav-header {margin-bottom: 20px; background-color: #f5f5f5; }
-.top-cover {height: 200px; }
+.main-search {background-color: #fff;}
+.top-cover {height: 180px; padding:40px 0;}
+.top-cover .lead {
+    text-align: center;
+}
 
 #signupcontainer .panel-info > .panel-heading {color: #009688; background-color: #fff; line-height: 18px; }
 #signupcontainer .panel-info > .panel-body {padding-top: 0;}
@@ -53,11 +57,6 @@ input.faChkRnd:after,input.faChkSqr:after {font-family: FontAwesome; font-size: 
 input.faChkRnd:checked:after {content: '\f05d'; color: #005951; }
 input.faChkRnd:after {content: '\f10c'; }
 
-div.subnav-container {
-    width:100%;
-    overflow:hidden;
-    border-bottom: 2px solid #ccc;
-}
 ul.subnav-list {
     margin: 0;
     padding: 0;
