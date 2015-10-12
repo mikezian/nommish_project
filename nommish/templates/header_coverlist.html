@@ -1,7 +1,14 @@
 {% load staticfiles %} 
 {% load recipe_tags %}
-<section>
-    <div class="top-cover">
-        {% top_slider_contents %}
+<section class="main-search">
+    <div class="container">
+    	<div class="top-cover">
+			<div class="lead"><h3>Discover and collect recipes using nommish.</h3>
+			</div>
+			<div class="lead">
+			{% if main_searchform %} {% load crispy_forms_tags %} {% crispy main_searchform %} {% endif %}
+			</div>
+			
+    	</div>
     </div>
-</section>
+</main>
